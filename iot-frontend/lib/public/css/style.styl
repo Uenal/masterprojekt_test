@@ -1,0 +1,167 @@
+
+body
+  margin 0
+  padding 0 0 60px 0
+  font 10px sans-serif
+
+textarea
+  resize none
+  background steelblue
+
+#footer
+  clear both
+  position relative
+  height 60px
+  margin-top -60px
+  background #eee
+
+  p
+    text-align center
+    position absolute
+    opacity 0
+    top 30%
+    left 0
+    right 0
+    transform translateY(-50%)
+    transition all 1s
+    &.show
+      opacity 1
+      top 50%
+
+.profileinfo
+  cursor pointer
+  z-index 2
+  background white
+  position absolute
+  right 16px
+  top 35px
+  color black
+  border 1px solid #eee
+  font-weight normal
+  padding 8px 16px
+
+.profileinfo-enter
+  opacity 0.01
+  top 25px
+
+.profileinfo-enter.profileinfo-enter-active
+  opacity 1
+  top 35px
+  transition 200ms ease-in
+
+.profileinfo-leave
+  opacity 1
+  top 35px
+
+.profileinfo-leave.profileinfo-leave-active
+  opacity 0.01
+  top 25px
+  transition 200ms ease-in
+
+.pointer
+  cursor pointer
+
+.textarea
+  height 100%
+
+.callout
+  box-shadow: 0 0 .5em gray;
+
+.dashboard-widget
+  box-shadow: 0 0 .5em gray;
+  margin: 0px 0px 1rem;
+
+  .title
+    background-color: #2F6ABD;
+    color: white;
+    font-weight: bold;
+    font-size: 1.4em;
+    line-height: 2em;
+    padding-left: 1rem;
+
+    a
+      color: white;
+
+    a:hover
+      color: gray;
+
+    .icons
+      float: right;
+      height: 2em;
+
+  .body
+    padding: 1rem;
+
+.seperator-line
+  margin 5px
+
+.realtime
+  height 400px
+
+#console
+  overflow scroll
+  border grey solid 1px
+  padding 10px
+
+.docs-page-title
+  margin-top 1rem
+  margin-bottom 1rem
+
+/*
+ * d3
+ */
+path {
+  stroke-width: 2;
+  fill: none;
+}
+
+.axis path,
+.axis line
+  fill none
+  stroke #000
+  shape-rendering crispEdges
+
+.y.axis path
+  display none
+
+.y.axis line
+  stroke #777
+  stroke-dasharray 2,2
+
+.selectable-row
+  padding 15px 0px
+  cursor: pointer
+
+.selectable-row:hover
+  background-color #5493ff
+  color white
+
+a
+
+  .selectable-row:hover
+    color white!important
+
+.search-row
+  width 100%
+  padding 25px 0px
+  margin-bottom 0px
+
+  input
+    margin 0px auto
+    margin-top 5px
+    width 100%
+
+.iot-modal
+  width 90%
+  position: fixed!important
+  z-index: 10
+  left 5%
+  top 30px
+
+@import "login"
+@import "sensor"
+@import "gateway"
+@import "dashboard"
+@import "user"
+@import "cluster"
+@import "lists"

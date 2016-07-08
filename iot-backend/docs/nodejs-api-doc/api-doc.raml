@@ -1,0 +1,644 @@
+#%RAML 0.8
+title: Masterprojekt IoT
+version: 1
+baseUri: http://localhost:3000/iot-friss
+/user:
+ get:
+   description: Show all registered User
+   headers:
+    Authorization:
+     description: Basic YWRtaW46YWRtaW4=
+   responses:
+    200:
+     body:
+      application/json:
+       example: |
+         [
+          {
+           „username“:“admin“,
+           „firstname“:“max“,
+           „lastname“:“mustermann“,
+           „roles": [
+           "ROLE_USER",
+           "ROLE_ADMIN"
+           ],
+           "sensorList": []
+          }
+         ]
+ post:
+    description: Register new User
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+     Content-Type:
+      description: application/json
+    body:
+     application/json:
+      example: |
+         {
+          „firstname“:“max“,
+          „lastname“:“mustermann“,
+          „password“:“abc123“,
+          "roles": ["ROLE_USER"]
+          }
+    responses:
+     201:
+      body:
+       application/json:
+        example: |
+         {
+          "username": "max",
+          "firstname": "max",
+          "lastname": "mustermann",
+          "roles": [
+            "ROLE_USER"
+          ],
+          "sensorList": []
+         }
+ /:username:
+   get:
+     description: Get solo user
+     headers:
+      Authorization:
+       description: Basic YWRtaW46YWRtaW4=
+     queryParameters:
+      username:
+       description: Username
+       type: string
+       required: true
+       example: max
+     responses:
+      200:
+            body:
+             application/json:
+              example: |
+               {
+                "username": "max",
+                "firstname": "max2",
+                "lastname": "mustermann",
+                "roles": [
+                  "ROLE_USER"
+                ],
+                "sensorList": []
+               }
+   delete:
+    description: Delete user
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+    queryParameters:
+     username:
+      description: Username
+      type: string
+      required: true
+      example: max
+    responses:
+     200:
+      description: User successfully deleted
+   put:
+    description: Update User
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+     Content-Type:
+      description: application/json
+    body:
+     application/json:
+      example: |
+         {
+             "firstname":"max2",
+             "lastname":"mustermann",
+             "password": "test123",
+             "roles": ["ROLE_USER"]
+         }
+    queryParameters:
+     username:
+      description: Username
+      type: string
+      required: true
+      example: max
+    responses:
+     200:
+      body:
+       application/json:
+        example: |
+         {
+          "username": "max",
+          "firstname": "max2",
+          "lastname": "mustermann",
+          "roles": [
+            "ROLE_USER"
+          ],
+          "sensorList": []
+         }
+ /:username/sensor:
+   put:
+    description: Attach created sensors to user by username
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+     Content-Type:
+      description: application/json
+    body:
+     application/json:
+      example: |
+       [
+        "1ac83a2f-2e33-4538-8e60-bc457f71b89b",
+        "f18de95c-e0da-498a-94b6-334c87202258",
+        "2fc27103-ac8a-46f6-bae1-0a9b354ca37c"
+       ]
+    queryParameters:
+     username:
+      description: Username
+      type: string
+      required: true
+      example: max
+    responses:
+     200:
+      body:
+       application/json:
+        example: |
+         {
+           "username": "admin",
+           "firstname": null,
+           "lastname": null,
+           "roles": [
+             "ROLE_USER",
+             "ROLE_ADMIN"
+           ],
+           "sensorList": [
+             "1ac83a2f-2e33-4538-8e60-bc457f71b89b",
+             "f18de95c-e0da-498a-94b6-334c87202258",
+             "2fc27103-ac8a-46f6-bae1-0a9b354ca37c"
+           ]
+         }
+   get:
+    description: Get all attached sensors from specific user by id
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+    queryParameters:
+     username:
+      description: Username
+      type: string
+      required: true
+      example: max
+    responses:
+     200:
+      body:
+       application/json:
+        example: |
+         [
+           {
+             "id": "301ff0eb-493f-49fe-8c0d-0c6785981032",
+             "name": null,
+             "sensorType": "ACCELERATION",
+             "location": "Berlin, Mitte",
+             "attachedClusters": [],
+             "attachedGateway": "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+             "owner": "admin",
+             "creationDate": "2016-01-21T19:21:57.024Z",
+             "active": true
+           },
+           {
+             "id": "52f3cef2-a348-4ddb-91f1-5f3f3eb357cc",
+             "name": null,
+             "sensorType": "ACCELERATION",
+             "location": "Berlin, Mitte",
+             "attachedClusters": [],
+             "attachedGateway": "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+             "owner": "admin",
+             "creationDate": "2016-01-21T19:22:05.538Z",
+             "active": true
+           },
+           {
+             "id": "df6f9f2d-d22c-4eaa-b44b-feb737b8a07a",
+             "name": null,
+             "sensorType": "ACCELERATION",
+             "location": "Berlin, Mitte",
+             "attachedClusters": [],
+             "attachedGateway": "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+             "owner": "admin",
+             "creationDate": "2016-01-21T19:22:04.806Z",
+             "active": true
+           }
+         ]
+/sensor:
+ get:
+   description: Show all added sensors
+   headers:
+    Authorization:
+     description: Basic YWRtaW46YWRtaW4=
+   responses:
+    200:
+     body:
+      application/json:
+       example: |
+         [
+           {
+             "id": "301ff0eb-493f-49fe-8c0d-0c6785981032",
+             "name": null,
+             "sensorType": "ACCELERATION",
+             "location": "Berlin, Mitte",
+             "attachedClusters": [],
+             "attachedGateway": "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+             "owner": "admin",
+             "creationDate": "2016-01-21T19:21:57.024Z",
+             "active": true
+           },
+           {
+             "id": "52f3cef2-a348-4ddb-91f1-5f3f3eb357cc",
+             "name": null,
+             "sensorType": "ACCELERATION",
+             "location": "Berlin, Mitte",
+             "attachedClusters": [],
+             "attachedGateway": "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+             "owner": "admin",
+             "creationDate": "2016-01-21T19:22:05.538Z",
+             "active": true
+           },
+           {
+             "id": "df6f9f2d-d22c-4eaa-b44b-feb737b8a07a",
+             "name": null,
+             "sensorType": "ACCELERATION",
+             "location": "Berlin, Mitte",
+             "attachedClusters": [],
+             "attachedGateway": "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+             "owner": "admin",
+             "creationDate": "2016-01-21T19:22:04.806Z",
+             "active": true
+           }
+         ]
+ post:
+    description: Add new sensor
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+     Content-Type:
+      description: application/json
+    body:
+     application/json:
+      example: |
+         {
+           "isActive":true,
+           "location":"Berlin, Mitte",
+           "sensorType": "ACCELERATION",
+           "attachedGateway": "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+           "attachedClusters": []
+          }
+    responses:
+     200:
+           body:
+            application/json:
+             example: |
+              {
+                "id": "3a0b96ab-cfca-4876-b0d1-d6ac41cd0cab",
+                "name": null,
+                "sensorType": "ACCELERATION",
+                "location": "Berlin, Mitte",
+                "attachedClusters": [],
+                "attachedGateway": "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+                "owner": "admin",
+                "creationDate": "2016-01-21T19:39:50.180Z",
+                "active": true
+              }
+ /:id:
+   get:
+     description: Get solo sensor
+     headers:
+      Authorization:
+       description: Basic YWRtaW46YWRtaW4=
+     queryParameters:
+      id:
+       description: sensor id
+       type: string
+       required: true
+       example: c149b163-7ad8-4809-8010-9acab033fb95
+     responses:
+      200:
+       body:
+        application/json:
+         example: |
+           {
+             "id": "301ff0eb-493f-49fe-8c0d-0c6785981032",
+             "name": null,
+             "sensorType": "ACCELERATION",
+             "location": "Berlin, Mitte",
+             "attachedClusters": [],
+             "attachedGateway": "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+             "owner": "admin",
+             "creationDate": "2016-01-21T19:21:57.024Z",
+             "active": true
+           }
+   delete:
+    description: Delete sensor
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+    queryParameters:
+     id:
+      description: sensor id
+      type: string
+      required: true
+      example: c149b163-7ad8-4809-8010-9acab033fb95
+    responses:
+     200:
+      description: Sensor successfully deleted
+   put:
+    description: User changes sensor
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+    body:
+     application/json:
+      example: |
+         {
+           "isActive":false,
+           "location":"Berlin, Mitte",
+           "attachedGateway" : "d95e5a53-adff-490c-b0a3-7ec539a81c7f",
+           "attachedClusters" : [],
+           "owner": "admin",
+           "sensorType": "ACCELERATION"
+          }
+    queryParameters:
+     id:
+      description: Sensor id
+      type: string
+      required: true
+      example: c149b163-7ad8-4809-8010-9acab033fb95
+    responses:
+     200:
+      description: Sensor data successfully changed
+/gateway:
+ get:
+   description: Show all added gateways
+   headers:
+    Authorization:
+     description: Basic YWRtaW46YWRtaW4=
+   responses:
+    200:
+     body:
+      application/json:
+       example: |
+         [
+           {
+             "id": "a50267cf-dd9d-4d47-b3e2-b7517075f215",
+             "name": "Gateway1"
+           }
+         ]
+ post:
+    description: Add new gateway
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+     Content-Type:
+      description: application/json
+    body:
+     application/json:
+      example: |
+         {
+           "name":"Gateway1"
+          }
+    responses:
+     200:
+           body:
+            application/json:
+             example: |
+              {
+                "id": "84d559f4-a73e-4d61-939f-caaf3cc1aeed",
+                "name": "Gateway1"
+              }
+ /:id:
+  get:
+    description: Get solo gateway
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+    queryParameters:
+     id:
+      description: gateway id
+      type: string
+      required: true
+      example: a50267cf-dd9d-4d47-b3e2-b7517075f215
+    responses:
+     200:
+      body:
+       application/json:
+        example: |
+           {
+             "id": "a50267cf-dd9d-4d47-b3e2-b7517075f215",
+             "name": "TestNameFürGateway"
+           }
+  delete:
+   description: Delete gateway
+   headers:
+    Authorization:
+     description: Basic YWRtaW46YWRtaW4=
+   queryParameters:
+    id:
+     description: Gateway id
+     type: string
+     required: true
+     example: 84d559f4-a73e-4d61-939f-caaf3cc1aeed
+   responses:
+    200:
+     description: Gateway successfully deleted
+  put:
+   description: Change gateway
+   headers:
+    Authorization:
+     description: Basic YWRtaW46YWRtaW4=
+   body:
+    application/json:
+     example: |
+      {
+        "name":"TestNameFürGateway"
+       }
+   queryParameters:
+    id:
+     description: Gateway id
+     type: string
+     required: true
+     example: a50267cf-dd9d-4d47-b3e2-b7517075f215
+   responses:
+    200:
+      body:
+       application/json:
+        example: |
+         {
+           "id": "a50267cf-dd9d-4d47-b3e2-b7517075f215",
+           "name": "TestNameFürGateway"
+         }
+/cluster:
+ get:
+   description: Show all added cluster
+   headers:
+    Authorization:
+     description: Basic YWRtaW46YWRtaW4=
+   responses:
+    200:
+     body:
+      application/json:
+       example: |
+         [
+           {
+             "id": "1004c576-7f12-4e23-8a48-b9df2c0f6575",
+             "name": "cluster1",
+             "creationDate": "2016-01-21T20:43:38.066Z",
+             "sensorList": []
+           }
+         ]
+ post:
+    description: Add new cluster
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+     Content-Type:
+      description: application/json
+    body:
+     application/json:
+      example: |
+         {
+             "name":"cluster1",
+             "sensorList":[]
+          }
+    responses:
+     200:
+           body:
+            application/json:
+             example: |
+              {
+                "id": "ed5319f2-ffe3-4d9f-bb81-4da57cf29005",
+                "name": "cluster1",
+                "creationDate": "2016-01-21T20:45:11.575Z",
+                "sensorList": []
+              }
+ /:id:
+  get:
+    description: Get solo cluster
+    headers:
+     Authorization:
+      description: Basic YWRtaW46YWRtaW4=
+    queryParameters:
+     id:
+      description: cluster id
+      type: string
+      required: true
+      example: ed5319f2-ffe3-4d9f-bb81-4da57cf29005
+    responses:
+     200:
+      body:
+       application/json:
+        example: |
+           {
+             "id": "ed5319f2-ffe3-4d9f-bb81-4da57cf29005",
+             "name": "cluster1",
+             "creationDate": "2016-01-21T20:45:11.575Z",
+             "sensorList": []
+           }
+  delete:
+   description: Delete cluster
+   headers:
+    Authorization:
+     description: Basic YWRtaW46YWRtaW4=
+   queryParameters:
+    id:
+     description: Cluster id
+     type: string
+     required: true
+     example: 1004c576-7f12-4e23-8a48-b9df2c0f6575
+   responses:
+    200:
+     description: Cluster successfully deleted
+  put:
+   description: Change cluster
+   headers:
+    Authorization:
+     description: Basic YWRtaW46YWRtaW4=
+   body:
+    application/json:
+     example: |
+      {
+          "name":"cluster1",
+          "sensorList":[
+          "301ff0eb-493f-49fe-8c0d-0c6785981032",
+          "52f3cef2-a348-4ddb-91f1-5f3f3eb357cc",
+          "df6f9f2d-d22c-4eaa-b44b-feb737b8a07a"
+          ]
+       }
+   queryParameters:
+    id:
+     description: Cluster id
+     type: string
+     required: true
+     example: ed5319f2-ffe3-4d9f-bb81-4da57cf29005
+   responses:
+    200:
+      body:
+       application/json:
+        example: |
+         {
+           "id": "ed5319f2-ffe3-4d9f-bb81-4da57cf29005",
+           "name": "cluster1",
+           "creationDate": "2016-01-21T20:45:11.575Z",
+           "sensorList": [
+             "301ff0eb-493f-49fe-8c0d-0c6785981032",
+             "52f3cef2-a348-4ddb-91f1-5f3f3eb357cc",
+             "df6f9f2d-d22c-4eaa-b44b-feb737b8a07a"
+           ]
+         }
+/measurement?sensor_id:
+    get:
+     description: Show all Measurements from specific sensor with time, page and sort order parameters
+     headers:
+      Authorization:
+       description: Basic YWRtaW46YWRtaW4=
+     queryParameters:
+      sensor_id:
+       type: string
+       required: true
+       example: d8c6af7a-26d9-45fa-bf40-dd66b1fb93f6
+      before:
+       type: string
+       required: false
+       example: "2016-01-25T18:30:48.444Z"
+      after:
+       type: string
+       required: false
+       example: "2016-01-25T18:30:48.444Z"
+      page:
+       type: integer
+       required: false
+       example: "0"
+      page_size:
+       type: integer
+       required: false
+       example: 100
+      sort_order:
+       type: string
+       required: false
+       example: desc
+     responses:
+      200:
+       body:
+        application/json:
+         example: |
+          {
+            "content": [],
+            "last": true,
+            "totalPages": 0,
+            "totalElements": 0,
+            "size": 50,
+            "number": 0,
+            "first": true,
+            "sort": [
+              {
+                "direction": "ASC",
+                "property": "timeOfMeasurement",
+                "ignoreCase": false,
+                "nullHandling": "NATIVE",
+                "ascending": true
+              }
+            ],
+            "numberOfElements": 0
+          }

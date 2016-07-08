@@ -1,0 +1,34 @@
+{
+	"id": "83f07639-86ca-4752-3651-906debc7e13d",
+	"name": "IOT BULK",
+	"description": "",
+	"order": [
+		"b7131a21-728c-8758-5753-5ce6e6dae73a"
+	],
+	"folders": [],
+	"timestamp": 1453747448022,
+	"owner": 0,
+	"public": false,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "b7131a21-728c-8758-5753-5ce6e6dae73a",
+			"headers": "Authorization: Basic bWF4OnRlc3QxMjM=\n",
+			"url": "http://localhost:8080/iot-friss/bulk?sensor_id=a833519d-3dfb-4746-8ec0-8bb66d80817f&start=2016-01-25T18:30:48.444Z&end=2016-01-25T18:30:48.444Z&page=0&page_size=50&sort_order=asc",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1454867672483,
+			"name": "GET BULKS",
+			"description": "- Parameters 'start' and 'end' are required in UTC (offset from UTC not allowed)\n- Parameter 'page' is optional, defaultValue = 0\n- Parameter 'page_size' is optional, defaultValue = 100\n- Parameter 'sort_order' is optional, defaultValue = desc",
+			"collectionId": "83f07639-86ca-4752-3651-906debc7e13d",
+			"responses": []
+		}
+	]
+}

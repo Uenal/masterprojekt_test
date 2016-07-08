@@ -1,0 +1,34 @@
+{
+	"id": "762fcbb2-52ff-9b9c-9bdd-91c5ab87c61c",
+	"name": "IOT ROLE",
+	"description": "",
+	"order": [
+		"f738c090-61e3-5684-5fa6-9521347e2b2b"
+	],
+	"folders": [],
+	"timestamp": 1454600451884,
+	"owner": 0,
+	"public": false,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "f738c090-61e3-5684-5fa6-9521347e2b2b",
+			"headers": "Authorization: Basic YWRtaW46YWRtaW4=\n",
+			"url": "http://localhost:8080/iot-friss/role",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1454720817541,
+			"name": "GET AVAILABLE ROLES",
+			"description": "",
+			"collectionId": "762fcbb2-52ff-9b9c-9bdd-91c5ab87c61c",
+			"responses": []
+		}
+	]
+}

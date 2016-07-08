@@ -1,0 +1,1 @@
+.list{opacity:0;overflow:hidden;transition:opacity 1s ease;}.list.done{opacity:1}.list a{color:#000;}.list a:hover{color:#2199e8}.list .active{color:#000;}.list .active:hover{color:#2199e8}.list .inactive{color:#cacaca}
