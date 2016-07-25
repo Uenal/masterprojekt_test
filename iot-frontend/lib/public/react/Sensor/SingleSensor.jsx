@@ -46,13 +46,13 @@ var SingleSensor = React.createClass({
   },
 
   componentDidMount: function() {
-      
+    
+    //Ist der Sensor vom Typ: "Labyrinth", werden alle Sensoren gesucht die den selben Typ haben.(this.state.robots) Damit diese von der RabbitMQ abboniert werden können.
     for(var x = 0; x < this.props.sensor.types.length; x++){
 
         if(this.props.sensor.types[x] == 'labyrinth' || this.props.sensor.types[x] == 'Labyrinth'){
             
             this.state.labyrinth = true;
-            
         }
     }
     
@@ -123,7 +123,6 @@ var SingleSensor = React.createClass({
     
       if(this.state.labyrinth == false){
         
-        console.log('false');
         var that = this;
         var rabbitClient = rabbit.connect();
         rabbitClient.connect('guest', 'guest', function() {
@@ -132,15 +131,12 @@ var SingleSensor = React.createClass({
 
                //console.log(JSON.parse(msg.body));
                that.test(JSON.parse(msg.body));
-    //            console.log(JSON.parse(msg.body));
           });
         });
         return rabbitClient;
       } else if(this.state.labyrinth == true){
           
-        var that = this;
-          
-          
+        var that = this;      
         var rabbitClient = rabbit.connect();
         rabbitClient.connect('guest', 'guest', function() {
                
@@ -151,7 +147,6 @@ var SingleSensor = React.createClass({
                 .subscribe('/exchange/friss_exch/' + id, function(msg) {
 
                    that.test2(JSON.parse(msg.body));
-                    
                 });
             }
             
@@ -263,7 +258,7 @@ var SingleSensor = React.createClass({
               </div>
               <div className='row'>
 
-              {/*  <div className='large-6 columns'>
+                <div className='large-6 columns'>
                   <h5>Orientation</h5>
                   { this.state.isLive
                     ? <Arrow3D quad={this.state.cQ}/>
@@ -276,9 +271,9 @@ var SingleSensor = React.createClass({
                     ? <TestNew value={this.state.cA} maxDate={this.state.maxDate}/>
                     : <DynamoGraph />
                   }
-                </div> */}
+                </div>
 
-                <div className='large-6 columns'>
+                <div className='large-15 columns'>
                     <CanvasPos value={this.state.robot} sensorType={this.props.sensor.types}/>
                 </div>
               </div>
